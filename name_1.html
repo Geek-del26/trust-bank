@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('file:///C:/Users/lenovo/OneDrive/Images/Camera%20Roll/5f9c9cfc740569d1a4ca3543.jpg'); /* Remplace cette URL par l'image que tu souhaites utiliser */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Augmenté l'espace entre les éléments */
+            position: relative;
+            color: white;
+            align-items: center; /* Centrer les éléments horizontalement */
+        }
+
+        .container .label {
+            font-size: 15px;
+            padding-left: 10px;
+            position: absolute;
+            top: 13px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input {
+            width: 200px;
+            height: 45px;
+            border: none;
+            outline: none;
+            padding: 0px 7px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            background-color: #000; /* Arrière-plan noir pour l'input */
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .input:focus {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4), inset 3px 3px 10px rgba(0, 0, 0, 1), inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .container .input:valid ~ .label,
+        .container .input:focus ~ .label {
+            transition: 0.3s;
+            padding-left: 2px;
+            transform: translateY(-35px);
+        }
+
+        .container .input:valid,
+        .container .input:focus {
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4), inset 3px 3px 10px rgba(0, 0, 0, 1), inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            border: none;
+            outline: none;
+            background-color: #000; /* Couleur du bouton en noir */
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff; /* Couleur du texte en blanc */
+            border-radius: 5px;
+            transition: all ease 0.1s;
+            box-shadow: 0px 5px 0px 0px #a29bfe;
+            cursor: not-allowed; /* Désactiver le curseur par défaut */
+        }
+
+        button:active {
+            transform: translateY(5px);
+            box-shadow: 0px 0px 0px 0px #a29bfe;
+        }
+
+        button.enabled {
+            cursor: pointer; /* Activer le curseur lorsque le bouton est cliquable */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input required type="text" name="username" id="username" class="input">
+        <label class="label" for="username">Username</label>
+        <button id="nextButton" onclick="navigateToNextPage()">Next</button>
+    </div>
+
+    <script>
+        const input = document.getElementById('username');
+        const button = document.getElementById('nextButton');
+
+        // Désactiver le bouton par défaut
+        button.disabled = true;
+
+        input.addEventListener('input', function() {
+            if (input.value.trim() !== "") {
+                button.classList.add('enabled');
+                button.disabled = false; // Activer le bouton
+            } else {
+                button.classList.remove('enabled');
+                button.disabled = true; // Désactiver le bouton
+            }
+        });
+
+        // Fonction pour rediriger vers la prochaine page et stocker le nom d'utilisateur
+        function navigateToNextPage() {
+            if (input.value.trim() !== "") {
+                localStorage.setItem('username', input.value.trim());
+                window.location.href = 'card.html'; // Remplace 'nextPage.html' par la page de destination
+            }
+        }
+    </script>
+</body>
+</html>

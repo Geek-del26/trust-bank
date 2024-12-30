@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Transfert</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom right, #f0f4ff, #d9e6ff);
+        }
+
+        .login-card {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 20px;
+            max-width: 400px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h1 {
+            font-size: 2em;
+            color: #333;
+            text-shadow: 1px 1px #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"] {
+            box-sizing: border-box;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f0f0f0;
+            font-size: 1.2em;
+            color: #555;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus {
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.3);
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0069d9;
+        }
+
+        .login-button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 10px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            transition: 0.25s;
+        }
+
+        .login-button:hover {
+            background-color: #0069d9e7;
+            -webkit-box-shadow: 0px 0px 30px 0px rgba(0,105,217,1);
+            -moz-box-shadow: 0px 0px 30px 0px rgba(0,105,217,1);
+            box-shadow: 0px 0px 30px 0px rgba(0,105,217,1);
+        }
+
+        /* Style pour le message d'erreur */
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="card-header">
+            <h1>Transfer Money</h1>
+        </div>
+        <div class="card-body">
+            <form onsubmit="navigateToConfirmationPage(event)">
+                <div class="form-group">
+                    <label for="amount">Transaction Amount</label>
+                    <input type="number" id="amount" name="amount" required="">
+                    <div class="error-message" id="error-message">The amount must be less than or equal to 5000.</div>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Recipient Account Number</label>
+                    <input type="text" id="account-number" name="account-number" required="">
+                </div>
+                <div class="form-group">
+                    <label for="beneficiary-name">Name of the Beneficiary</label>
+                    <input type="text" id="beneficiary-name" name="beneficiary-name" required="">
+                </div>
+                <div class="form-group">
+                    <label for="bank-details">Details of the Beneficiary's Bank</label>
+                    <input type="text" id="bank-details" name="bank-details" required="">
+                </div>
+                <div class="form-group">
+                    <label for="payment-reason">Reason for Payment</label>
+                    <input type="text" id="payment-reason" name="payment-reason" required="">
+                </div>
+                <div class="form-group">
+                    <label for="transaction-date">Transaction Date</label>
+                    <input type="date" id="transaction-date" name="transaction-date" required="">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="login-button">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Fonction pour rediriger vers la page de confirmation
+        function navigateToConfirmationPage(event) {
+            event.preventDefault(); // Empêcher l'action par défaut du formulaire
+
+            // Récupérer le montant de la transaction
+            const amount = parseFloat(document.getElementById('amount').value);
+            const errorMessage = document.getElementById('error-message');
+
+            // Vérifier si le montant est supérieur à 5000
+            if (amount > 5000) {
+                errorMessage.style.display = 'block'; // Afficher le message d'erreur
+            } else {
+                errorMessage.style.display = 'none'; // Masquer le message d'erreur
+
+                // Stocker le montant de la transaction dans localStorage
+                localStorage.setItem('transferAmount', amount);
+
+                // Rediriger vers la page de confirmation
+                window.location.href = 'ordrev.html'; // Remplace 'confirmation.html' par le nom de ta page de confirmation
+            }
+        }
+    </script>
+</body>
+</html>
